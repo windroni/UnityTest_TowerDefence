@@ -49,6 +49,7 @@
      <Compile Include="Assets\Script\Enum.cs" />
      <Compile Include="Assets\Script\MapManager.cs" />
      <Compile Include="Assets\Script\TileInfo.cs" />
+     <None Include="Assets\Resources\MapData\Map.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
