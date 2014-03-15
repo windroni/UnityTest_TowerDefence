@@ -21,6 +21,8 @@ public class MapManager : MonoBehaviour
 
 	public GameObject[,] tiles_;
 	public GameObject _baseTilePrefab;
+
+	public TILESTYLE _editTileStyle = TILESTYLE.NORMAL;
 	
 
 	public void RemoveAllTiles()
@@ -42,4 +44,12 @@ public class MapManager : MonoBehaviour
 
 		//pathList_.Clear();
 	}
+
+#if UNITY_EDITOR
+	public void OnValidate()
+	{
+		Debug.Log("OnValidate");
+	}
+#endif
+
 }

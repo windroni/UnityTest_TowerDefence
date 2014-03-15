@@ -2,6 +2,13 @@
 using UnityEditor;
 using System.Collections;
 
+/*
+ * 텍스처의 이해 (파이프라인에 대한 이해)
+ * 텍스처 + 쉐이더 = 머터리얼 
+ * 텍스처나 쉐이더가  스위칭하면 드로우콜 발생 
+ *
+ */
+
 [CustomEditor(typeof(MapManager))]
 public class MapManagerInspector : Editor
 {
@@ -28,6 +35,10 @@ public class MapManagerInspector : Editor
 				obj.transform.localPosition = new Vector3(i, 0.0f, j);
 				obj.name = i + "_" + j;
 				mapManager_.tiles_[i,j] = obj;
+
+				TileInfo tileInfo = mapManager_.tiles_[i,j].GetComponent<TileInfo>();
+				tileInfo.currnetTileStyle = mapManager_._editTileStyle;
+				tileInfo.UpdateMaterial();
 			}
 		}
 	}
@@ -40,6 +51,7 @@ public class MapManagerInspector : Editor
 		//DrawBaseTileObject ();
 		DrawGenerateButton();
 	}
+
 
 	void DrawGenerateButton()
 	{
@@ -56,6 +68,108 @@ public class MapManagerInspector : Editor
 
 		EditorGUILayout.EndHorizontal();
 	}
+
+
+	void OnSceneGUI()
+	{
+		if(Application.isPlaying)
+			return;
+
+		Handles.BeginGUI();
+		if(GUI.Button(new Rect(10, 10, 100, 30), "NORMAL"))
+		{
+			mapManager_._editTileStyle = TILESTYLE.NORMAL;
+		}
+		if(GUI.Button(new Rect(10, 50, 100, 30), "STRAIGHT"))
+		{
+			mapManager_._editTileStyle = TILESTYLE.STRAIGHT;
+		}
+		if(GUI.Button(new Rect(10, 90, 100, 30), "CORNER"))
+		{
+			mapManager_._editTileStyle = TILESTYLE.CORNER;
+		}
+		if(GUI.Button(new Rect(10, 130, 100, 30), "START"))
+		{
+			mapManager_._editTileStyle = TILESTYLE.START;
+		}
+		if(GUI.Button(new Rect(10, 170, 100, 30), "END"))
+		{
+			mapManager_._editTileStyle = TILESTYLE.END;
+		}
+
+		GUI.color = Color.green;
+		GUI.Label(new Rect(120, 10, 500, 30), "Eidt Mode : " + mapManager_._editTileStyle);
+		GUI.color = Color.white;
+
+		Handles.EndGUI();
+
+		int controlID = GUIUtility.GetControlID(FocusType.Passive);
+		HandleUtility.AddDefaultControl(controlID);
+
+		Event e = Event.current;
+		if(e.isKey)
+		{
+			Debug.Log("key click");
+			if(e.character == '1') mapManager_._editTileStyle = TILESTYLE.NORMAL;
+			else if(e.character == '2') mapManager_._editTileStyle = TILESTYLE.STRAIGHT;
+			else if(e.character == '3') mapManager_._editTileStyle = TILESTYLE.CORNER;
+			else if(e.character == '4') mapManager_._editTileStyle = TILESTYLE.START;
+			else if(e.character == '5') mapManager_._editTileStyle = TILESTYLE.END;
+		}
+
+		else if(e.type == EventType.mouseDown || e.type == EventType.mouseDrag)
+		{
+			if(e.alt)
+			{
+				return;
+			}
+
+			Vector2 mousePosition = Event.current.mousePosition;
+
+			Ray ray = HandleUtility.GUIPointToWorldRay(mousePosition);
+			RaycastHit hit;
+			bool result  = Physics.Raycast(ray, out hit, 1000.0f);
+
+			if(result)
+			{
+				GameObject tileObj = hit.transform.gameObject;
+				TileInfo tileInfo = tileObj.GetComponent<TileInfo>();
+				if(tileInfo == null)
+					return;
+				if(e.button == 0) //left click
+				{
+					Debug.Log("edit left click");
+
+					tileInfo.currnetTileStyle = mapManager_._editTileStyle;
+					tileInfo.UpdateMaterial();
+				}
+				else if(e.button == 1) //right click
+				{
+					hit.transform.localEulerAngles += new Vector3(0.0f, 90.0f, 0.0f);
+				}
+			}
+		}
+	}
+
+	void PathAddOrRemove(int buttonCode, Event currentEvent, RaycastHit hit, TileInfo tileInfo)
+	{
+		if(buttonCode == 0)
+		{
+			if(currentEvent.shift)
+			{
+				if(mapManager_._pathList.Contains(hit.transform) == false)
+					mapManager_._pathList.Add(hit.transform);
+			}
+			else
+			{
+				tileInfo
+			}
+		}
+	}
+
+
+
+
 
 	void DrawBaseTileObject()
 	{
