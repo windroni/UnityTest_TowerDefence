@@ -281,6 +281,9 @@ public class MapManagerInspector : Editor
 		string dataPath = Application.dataPath;
 		string fullPath = dataPath + "/Resources/MapData/" + mapManager_._fileName + ".txt";
 
+		//string path = Path.Combine(dataPath, "/Resources/MapData/"); // 사이사이에 경로 "/" 를 넣어준다.
+		//path += mapManager_._fileName;
+
 		FileStream fs = new FileStream(fullPath, FileMode.Create);
 		TextWriter textWriter = new StreamWriter(fs);
 
