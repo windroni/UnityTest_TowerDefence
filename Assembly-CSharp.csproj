@@ -49,6 +49,8 @@
      <Compile Include="Assets\Script\Enum.cs" />
      <Compile Include="Assets\Script\MapManager.cs" />
      <Compile Include="Assets\Script\TileInfo.cs" />
+     <Compile Include="Assets\Script\Tower\RoateLookTarget.cs" />
+     <Compile Include="Assets\Script\Tower\TowerScript.cs" />
      <Compile Include="Assets\Script\Util\singleton.cs" />
      <Compile Include="Assets\Script\Wave\WaveManager.cs" />
      <Compile Include="Assets\Script\enemy\EnemyMove.cs" />

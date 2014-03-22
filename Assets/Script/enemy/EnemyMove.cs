@@ -65,7 +65,7 @@ public class EnemyMove : MonoBehaviour {
 		}
 		else
 		{
-			Debug.Log ("Update Path : " + distance);
+//			Debug.Log ("Update Path : " + distance);
 			Vector3 dir   = nextDestination.position - transform.position;
 			dir.y = 0.0f; //y값을 없애버린다.
 			dir.Normalize(); //길이가 1이 된다.(방향이 중요하다. 길이는 필요없을때)

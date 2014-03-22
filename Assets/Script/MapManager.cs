@@ -92,7 +92,7 @@ public class MapManager : MonoBehaviour
 		string text = textReader.ReadLine();
 		int spaceIndex = text.IndexOf(' ');
 		string widthText = text.Substring(spaceIndex + 1);
-		Debug.Log(widthText);
+//		Debug.Log(widthText);
 		currentMapWidth_ = int.Parse(widthText);
 
 		// read.height	
@@ -153,7 +153,7 @@ public class MapManager : MonoBehaviour
 #if UNITY_EDITOR
 	public void OnValidate()
 	{
-		Debug.Log("OnValidate");
+		//Debug.Log("OnValidate");
 	}
 #endif
 
