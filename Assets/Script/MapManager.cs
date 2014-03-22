@@ -6,6 +6,15 @@ using System.IO;
 // 데이타에서 값을 읽어 범위를 지정하게 할수는 없나?
 public class MapManager : MonoBehaviour 
 {
+	static MapManager _instance = null;
+	public static MapManager instance
+	{
+		get 
+		{
+			return _instance;
+		}
+	}
+
 	[Range(0, 3)] 
 	public int _minWidth = 3;
 	[Range(0, 20)]
@@ -28,6 +37,17 @@ public class MapManager : MonoBehaviour
 
 	public string _fileName;
 
+
+	void Awake()
+	{
+		_instance = this;
+		LoadFile();
+	}
+
+	public Transform[] GetPathArray()
+	{
+		return _pathList.ToArray();
+	}
 
 	public void RemoveAllTiles()
 	{

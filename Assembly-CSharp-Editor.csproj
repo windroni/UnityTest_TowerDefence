@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Script\Editor\CommonEditorUi.cs" />
      <Compile Include="Assets\Script\Editor\MapManagerInspector.cs" />
+     <Compile Include="Assets\Script\Editor\WaveManagerInspector.cs" />
      <None Include="Assets\Resources\MapData\Map.txt" />
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:\Program Files (x86)\Unity\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
